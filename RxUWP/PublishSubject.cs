@@ -51,9 +51,9 @@ namespace RxUWP {
         /// 
         /// </summary>
         /// <param name="by"></param>
-        public void DisposeBag(DisposeBag by) {
+        public void DisposeBag(DisposeBag bag) {
             var token = this._observable.Subscribe(observer => {});
-            by.Collect(token);
+            bag.Collect(token);
         }
 
     }
