@@ -6,23 +6,44 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RxUWP.Disposable {
-    public class DisposeBag : IDisposable {
+    public class DisposeBag : IDisposable { 
+
+        #region Fields
 
         /// <summary>
-        /// Disposeメソッド
+        /// List of IDisposable instance.
+        /// </summary>
+        private List<IDisposable> Bag = new List<IDisposable>();
+
+        #endregion
+
+
+        #region Method
+
+        /// <summary>
+        /// Disposes the observer, causing it to transition to the stopped step.
         /// </summary>
         public void Dispose() {
-            this.Bag.ForEach(obj => {
-                try {
-                    obj.Dispose();
-                } catch {
-#if DEBUG
-                    Debug.WriteLine("Dispose処理に失敗しました。");
-#endif
-                }
-            });
-            this.Bag.Clear();
-            Debug.WriteLine("DisposeBagが実行されました。");
+            this.Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+
+        /// <summary>
+        ///  Core implementation of <see cref="IDisposable"/>
+        /// </summary>
+        /// <param name="disposing"><c>true</c> if the Dispose call was triggered by the <see cref="IDisposable.Dispose"/> method; <c>false</c> if it was triggered by the finalizer.</param>
+        public void Dispose(bool disposing) {
+            if(disposing) {
+                this.Bag.ForEach(obj => {
+                    try {
+                        obj.Dispose();
+                    } catch {
+
+                    }
+                });
+                this.Bag.Clear();
+            }
         }
 
         /// <summary>
@@ -33,9 +54,6 @@ namespace RxUWP.Disposable {
             this.Bag.Add(obj);
         }
 
-        /// <summary>
-        /// IDisposeインスタンスを格納する 
-        /// </summary>
-        private List<IDisposable> Bag = new List<IDisposable>();
+        #endregion
     }
 }
