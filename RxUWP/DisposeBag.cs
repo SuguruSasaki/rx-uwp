@@ -22,6 +22,7 @@ namespace RxUWP {
                 }
             });
             this.Bag.Clear();
+            Debug.WriteLine("DisposeBagが実行されました。");
         }
 
         /// <summary>

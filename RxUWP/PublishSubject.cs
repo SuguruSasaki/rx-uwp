@@ -9,19 +9,29 @@ using System.Threading.Tasks;
 namespace RxUWP {
 
     public class PublishSubject<T> {
-    
-        /// <summary>
-        /// 
-        /// </summary>
-        private Subject<T> _subject = new Subject<T>();
 
-        /// <summary>
-        /// 
-        /// </summary>
+        #region Fields
+
+        private Subject<T> _subject = new Subject<T>();
         private IObservable<object> _observable;
 
+        #endregion
+
+
+        #region Constructor
+
         /// <summary>
-        /// 
+        /// Create a PublishSubject
+        /// </summary>
+        public PublishSubject() { }
+
+        #endregion
+
+
+        #region Method
+
+        /// <summary>
+        /// Subscribe an observer to the subject.
         /// </summary>
         /// <param name="observer"></param>
         /// <returns></returns>
@@ -30,7 +40,7 @@ namespace RxUWP {
         }
 
         /// <summary>
-        /// 
+        /// Notifies all subscribed observers about the arrival of the specified element in the sequence.
         /// </summary>
         /// <param name="value"></param>
         public void OnNext(T value) {
@@ -43,8 +53,7 @@ namespace RxUWP {
         /// <param name="selector"></param>
         /// <returns></returns>
         public PublishSubject<T> Map(Func<T, object> selector) {
-            this._observable = this._subject
-                .Select(x => selector(x));
+            this._observable = this._subject.Select(x => selector(x));
             return this;
         }
 
@@ -72,6 +81,6 @@ namespace RxUWP {
             bag.Collect(token);
         }
 
+        #endregion
     }
-
 }

@@ -53,8 +53,8 @@ namespace Example
 
 
             this._reactor.action.Subscribe(Action => {
-                Debug.WriteLine(Action);
-                Debug.WriteLine("action ok *************");
+
+                this.Frame.Navigate(typeof(IndexScene));
             });
 
             button
