@@ -1,10 +1,15 @@
-﻿using System;
+﻿using RxUWP;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,9 +27,44 @@ namespace Example
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        enum Action {
+            didTap
+        }
+
+        class Reactor {
+            public Subject<Action> action = new Subject<Action>();
+        }
+
+        private Reactor _reactor = new Reactor();
+
+        private DisposeBag _disposeBag = new DisposeBag();
+
         public MainPage()
         {
             this.InitializeComponent();
+
+
+            BehaviorSubject<int> subject = new BehaviorSubject<int>(10);
+
+
+            var button = new ButtonRx();
+            button.Width = 100;
+            button.Height = 44;
+            button.Background = new SolidColorBrush(Colors.Black);
+
+            this.Root.Children.Add(button);
+
+
+            this._reactor.action.Subscribe(Action => {
+                Debug.WriteLine(Action);
+                Debug.WriteLine("action ok *************");
+            });
+
+            button
+                .Tap
+                .Map(x => Action.didTap)
+                .Bind(to: this._reactor.action)
+                .DisposeBag(by: this._disposeBag);
         }
     }
 }
