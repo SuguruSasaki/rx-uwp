@@ -16,6 +16,10 @@ this._reactor.action.Subscribe(Action => {
     Debug.WriteLine(Action);
 });
 
+var button = new ButtonRx();
+button.Width = 100;
+button.Height = 44;
+button.Background = new SolidColorBrush(Colors.Black);
 
 button.Tap
     .Map(x => Action.didTap)
