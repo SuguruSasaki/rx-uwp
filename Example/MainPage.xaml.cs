@@ -44,10 +44,6 @@ namespace Example
         {
             this.InitializeComponent();
 
-
-            BehaviorSubject<int> subject = new BehaviorSubject<int>(10);
-
-
             var button = new ButtonRx();
             button.Width = 100;
             button.Height = 44;
@@ -65,7 +61,7 @@ namespace Example
                 .Tap
                 .Map(x => Action.didTap)
                 .Bind(to: this._reactor.action)
-                .DisposeBag(by: this._disposeBag);
+                .DisposeBag(bag: this._disposeBag);
         }
     }
 }

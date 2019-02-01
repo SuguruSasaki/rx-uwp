@@ -10,13 +10,29 @@ namespace RxUWP {
 
     public class PublishSubject<T> {
     
+        /// <summary>
+        /// 
+        /// </summary>
         private Subject<T> _subject = new Subject<T>();
+
+        /// <summary>
+        /// 
+        /// </summary>
         private IObservable<object> _observable;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="observer"></param>
+        /// <returns></returns>
         public IDisposable Subscribe(IObserver<T> observer) {
             return this._subject.Subscribe(observer);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
         public void OnNext(T value) {
             this._subject.OnNext(value);
         }
