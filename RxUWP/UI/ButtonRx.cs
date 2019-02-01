@@ -12,28 +12,30 @@ namespace RxUWP.UI {
 
     public class ButtonRx: Button {
 
-        private PublishSubject<bool> _actionSubject = new PublishSubject<bool>();
-
+      
         /// <summary>
         /// 
         /// </summary>
         public PublishSubject<bool> Tap { get => this._actionSubject; }
 
+
         /// <summary>
         /// 
         /// </summary>
-        public Subject<bool> Tap2 { get => new Subject<bool>(); }
+        private PublishSubject<bool> _actionSubject = new PublishSubject<bool>();
 
         /// <summary>
         /// Constructor
+        /// TODO: set up all events
         /// </summary>
         public ButtonRx(): base() {
-
             this.Tapped += this.OnButtonTapped;
             // this.Click += this.OnButtonClick;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         private void Execute() {
             this._actionSubject.OnNext(true);
         }
