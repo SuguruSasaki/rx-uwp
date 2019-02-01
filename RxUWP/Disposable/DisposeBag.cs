@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RxUWP {
+namespace RxUWP.Disposable {
     public class DisposeBag : IDisposable {
 
         /// <summary>

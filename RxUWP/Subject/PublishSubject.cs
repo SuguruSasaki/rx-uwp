@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RxUWP.Disposable;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
@@ -6,7 +7,7 @@ using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RxUWP {
+namespace RxUWP.Subject {
 
     public class PublishSubject<T> {
 

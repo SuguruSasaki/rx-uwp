@@ -1,4 +1,5 @@
 ﻿using RxUWP;
+using RxUWP.Disposable;
 using RxUWP.UI;
 using System;
 using System.Collections.Generic;
