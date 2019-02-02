@@ -22,8 +22,7 @@ button.Tap
 ```c#
 var tb = new TextBlock();
 
-button
-    .Tap
+button.Tap
     .Map(x => "Hello World")
     .Bind<string>(tb.RxText())
     .DisposeBag(bag: this._disposeBag);
