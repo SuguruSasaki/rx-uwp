@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
 namespace RxUWP.UI.Extensions {
+
     public static class ScrollViewExtensions {
 
         /// <summary>

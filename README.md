@@ -2,6 +2,12 @@
 
 This library is an extension of each class of UWP using Reactive Extensions(.Net Rx)
 
+## UI
+
++ Button
++ TextBlock
++ ScrollViewer
+
 ## Usage
 
 ### Button
@@ -28,4 +34,14 @@ button.rx_Tap()
     .Select(x => "Hello World")
     .Bind(tb.rx_Text())
     .DisposeBag(bag: this._disposeBag);
+```
+
+### ScrollViewer
+
+```c#
+scrollView.rx_Changed()
+    .Select(x => x)
+    .Bind(to: subjectScroll)
+    .DisposeBag(bag: this._disposeBag);
+
 ```
