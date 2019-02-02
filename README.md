@@ -26,6 +26,6 @@ var tb = new TextBlock();
 
 button.rx_Tap()
     .Map(x => "Hello World")
-    .Bind<string>(tb.rx_Text())
+    .Bind(tb.rx_Text())
     .DisposeBag(bag: this._disposeBag);
 ```
