@@ -24,6 +24,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Threading;
 using RxUWP.Observable.Extensions;
+using Windows.UI.Xaml.Shapes;
 
 namespace Example
 {
@@ -49,8 +50,6 @@ namespace Example
             button.Background = new SolidColorBrush(Colors.Black);
 
             this.Root.Children.Add(button);
-
-
 
             var tb = new TextBlock();
             tb.HorizontalAlignment = HorizontalAlignment.Center;
@@ -78,6 +77,36 @@ namespace Example
                 .Select(x => "button tapped!!")
                 .Bind(to: this._reactor.action)
                 .DisposeBag(bag: this._disposeBag);
+
+
+            var scrollView = new ScrollViewer();
+            scrollView.HorizontalAlignment = HorizontalAlignment.Right;
+            scrollView.VerticalAlignment = VerticalAlignment.Top;
+            scrollView.Width = 100;
+            scrollView.Height = 200;
+            scrollView.Name = "ScrollSample";
+            scrollView.Background = new SolidColorBrush(Colors.Red);
+            this.Root.Children.Add(scrollView);
+
+            var rect = new Rectangle();
+            rect.Width = 100;
+            rect.Height = 500;
+            rect.Fill = new SolidColorBrush(Colors.Yellow);
+
+            scrollView.Content = rect;
+
+            var subjectScroll = new Subject<ScrollViewer>();
+            subjectScroll.Subscribe(observer => {
+                Debug.WriteLine(observer.Name);
+            });
+
+
+            scrollView.rx_Changed()
+                .Select(x => x)
+                .Bind(to: subjectScroll)
+                .DisposeBag(bag: this._disposeBag);
+
+
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e) {
