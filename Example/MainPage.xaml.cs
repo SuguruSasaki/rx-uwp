@@ -1,6 +1,7 @@
 ﻿using RxUWP;
 using RxUWP.Disposable;
 using RxUWP.UI;
+using RxUWP.UI.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -53,16 +54,36 @@ namespace Example
             this.Root.Children.Add(button);
 
 
+            var tb = new TextBlock();
+            tb.HorizontalAlignment = HorizontalAlignment.Center;
+            tb.VerticalAlignment = VerticalAlignment.Center;
+            tb.Text = "NO DATA";
+            this.Root.Children.Add(tb);
+
+
             this._reactor.action.Subscribe(Action => {
+
+                
 
                 this.Frame.Navigate(typeof(IndexScene));
             });
 
+            /*
             button
                 .Tap
                 .Map(x => Action.didTap)
                 .Bind(to: this._reactor.action)
                 .DisposeBag(bag: this._disposeBag);
+                */
+
+            button
+                .Tap
+                .Map(x => "Hello World")
+                .Bind<string>(tb.RxText())
+                .DisposeBag(bag: this._disposeBag);
+           
+
+            
         }
     }
 }
