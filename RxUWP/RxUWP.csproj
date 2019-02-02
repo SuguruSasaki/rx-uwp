@@ -106,11 +106,11 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Subject\SubjectExtensions.cs" />
-    <Compile Include="UI\ButtonRx.cs" />
+    <Compile Include="Observable\Extensions\ObservableExtensions.cs" />
+    <Compile Include="Subject\Extensions\SubjectExtensions.cs" />
     <Compile Include="Disposable\DisposeBag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Subject\PublishSubject.cs" />
+    <Compile Include="UI\Extensions\ButtonExtensions.cs" />
     <Compile Include="UI\Extensions\TextBlockExtensions.cs" />
     <EmbeddedResource Include="Properties\RxUWP.rd.xml" />
   </ItemGroup>

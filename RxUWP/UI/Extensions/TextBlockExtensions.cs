@@ -15,19 +15,17 @@ namespace RxUWP.UI.Extensions {
         #region Rx
 
         /// <summary>
-        /// 
+        /// Reactive wrapped input Text property. 
         /// </summary>
         /// <param name="tb">instance of TextBlock</param>
         /// <returns></returns>
-        public static Subject<string> RxText(this TextBlock tb) {
+        public static Subject<string> rx_Text(this TextBlock tb) {
             var subject = new Subject<string>();
             subject.Subscribe(observer => { tb.Text = observer; });
             return subject;
         }
 
-
-     
-
+    
         #endregion
     }
 }

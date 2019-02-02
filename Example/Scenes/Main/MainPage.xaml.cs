@@ -3,6 +3,7 @@ using RxUWP.Disposable;
 using RxUWP.UI;
 using RxUWP.UI.Extensions;
 using RxUWP.Subject;
+using RxUWP.Observable;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,22 +22,17 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x411 を参照してください
+using System.Threading;
+using RxUWP.Observable.Extensions;
 
 namespace Example
 {
-    /// <summary>
-    /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
-    /// </summary>
+    
     public sealed partial class MainPage : Page
     {
-        enum Action {
-            didTap
-        }
-
+      
         class Reactor {
-            public Subject<Action> action = new Subject<Action>();
+            public Subject<string> action = new Subject<string>();
         }
 
         private Reactor _reactor = new Reactor();
@@ -47,12 +43,13 @@ namespace Example
         {
             this.InitializeComponent();
 
-            var button = new ButtonRx();
+            var button = new Button();
             button.Width = 100;
             button.Height = 44;
             button.Background = new SolidColorBrush(Colors.Black);
 
             this.Root.Children.Add(button);
+
 
 
             var tb = new TextBlock();
@@ -62,46 +59,25 @@ namespace Example
             this.Root.Children.Add(tb);
 
 
-            var subject = new PublishSubject<string>();
-            subject
-                .Map(x => x)
-                .Bind(to: tb.RxText())
+            this._reactor.action
+                .Select(x => x)
+                .Bind(to: tb.rx_Text())
                 .DisposeBag(bag: this._disposeBag);
 
+
+
+            this._reactor.action.OnNext("Test done");
 
 
             this._reactor.action.Subscribe(Action => {
-
-                subject.OnNext("Buttonがタップされました。");
-
+                Debug.WriteLine("********");
                 //this.Frame.Navigate(typeof(IndexScene));
             });
 
-
-            
-            
-
-           
-
-            
-
-            
-            button
-                .Tap
-                .Map(x => Action.didTap)
+            button.rx_Tap()
+                .Select(x => "button tapped!!")
                 .Bind(to: this._reactor.action)
                 .DisposeBag(bag: this._disposeBag);
-                
-
-            /*
-            button
-                .Tap
-                .Map(x => "Hello World")
-                .Bind<string>(tb.RxText())
-                .DisposeBag(bag: this._disposeBag);
-           */
-
-            
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e) {
