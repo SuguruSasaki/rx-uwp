@@ -13,17 +13,15 @@ namespace RxUWP.UI {
 
     public class ButtonRx: Button {
 
-      
-        /// <summary>
-        /// 
-        /// </summary>
+        #region Fields
+
         public PublishSubject<bool> Tap { get => this._actionSubject; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
         private PublishSubject<bool> _actionSubject = new PublishSubject<bool>();
+
+        #endregion
+
+        #region Constructor
 
         /// <summary>
         /// Constructor
@@ -33,6 +31,10 @@ namespace RxUWP.UI {
             this.Tapped += this.OnButtonTapped;
             // this.Click += this.OnButtonClick;
         }
+
+        #endregion
+
+        #region Method
 
         /// <summary>
         /// 
@@ -59,5 +61,7 @@ namespace RxUWP.UI {
         private void OnButtonClick(object sender, RoutedEventArgs e) {
             this.Execute();
         }
+
+        #endregion
     }
 }
