@@ -2,6 +2,7 @@
 using RxUWP.Disposable;
 using RxUWP.UI;
 using RxUWP.UI.Extensions;
+using RxUWP.Subject;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -61,29 +62,51 @@ namespace Example
             this.Root.Children.Add(tb);
 
 
+            var subject = new PublishSubject<string>();
+            subject
+                .Map(x => x)
+                .Bind(to: tb.RxText())
+                .DisposeBag(bag: this._disposeBag);
+
+
+
             this._reactor.action.Subscribe(Action => {
 
-                
+                subject.OnNext("Buttonがタップされました。");
 
-                this.Frame.Navigate(typeof(IndexScene));
+                //this.Frame.Navigate(typeof(IndexScene));
             });
 
-            /*
+
+            
+            
+
+           
+
+            
+
+            
             button
                 .Tap
                 .Map(x => Action.didTap)
                 .Bind(to: this._reactor.action)
                 .DisposeBag(bag: this._disposeBag);
-                */
+                
 
+            /*
             button
                 .Tap
                 .Map(x => "Hello World")
                 .Bind<string>(tb.RxText())
                 .DisposeBag(bag: this._disposeBag);
-           
+           */
 
             
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e) {
+            base.OnNavigatingFrom(e);
+            this._disposeBag.Dispose();
         }
     }
 }

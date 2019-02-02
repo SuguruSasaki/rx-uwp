@@ -43,6 +43,10 @@ namespace RxUWP.Disposable {
                     }
                 });
                 this.Bag.Clear();
+
+#if DEBUG
+                Debug.WriteLine("DisposeBag done");
+#endif
             }
         }
 
