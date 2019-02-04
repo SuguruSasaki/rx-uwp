@@ -45,3 +45,12 @@ scrollView.rx_Changed()
     .DisposeBag(bag: this._disposeBag);
 
 ```
+
+### TextBox
+
+```c#
+box.rx_TextChanged()
+    .Select(x => x)
+    .Bind(to: subject)
+    .DisposeBag(this._disposeBag);
+```
