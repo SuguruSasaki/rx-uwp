@@ -107,6 +107,30 @@ namespace Example
                 .DisposeBag(bag: this._disposeBag);
 
 
+            var subject2 = new Subject<string>();
+            subject2.Subscribe(observer => {
+                Debug.WriteLine(observer);
+            });
+
+
+
+            var box = new TextBox();
+            box.Width = 100;
+            box.Height = 50;
+            box.HorizontalAlignment = HorizontalAlignment.Right;
+            box.VerticalAlignment = VerticalAlignment.Center;
+            box.Background = new SolidColorBrush(Colors.Blue);
+
+
+            this.Root.Children.Add(box);
+
+            box.rx_TextChanged()
+                .Select(x => x)
+                .Bind(to: subject2)
+                .DisposeBag(this._disposeBag);
+                
+
+            
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e) {

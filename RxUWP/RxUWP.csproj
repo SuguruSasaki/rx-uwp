@@ -113,6 +113,7 @@
     <Compile Include="UI\Extensions\ButtonExtensions.cs" />
     <Compile Include="UI\Extensions\ScrollViewExtensions.cs" />
     <Compile Include="UI\Extensions\TextBlockExtensions.cs" />
+    <Compile Include="UI\Extensions\TextBoxExtensions.cs" />
     <EmbeddedResource Include="Properties\RxUWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
