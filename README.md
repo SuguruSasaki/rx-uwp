@@ -17,7 +17,7 @@ This library is an extension of each class of UWP using Reactive Extensions(.Net
 var button = new Button(); 
 
 button.rx_Tap()
-    .Select(x => "button tapped!!")
+    .Select(x => "button tapped!!")     
     .Bind(to: this._reactor.action)
     .DisposeBag(bag: this._disposeBag);
 
